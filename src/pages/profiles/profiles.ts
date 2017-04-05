@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ModalController, NavParams } from 'ionic-angular';
 import { GithubService } from '../../providers/github-service';
 import { RepoDetailsPage } from '../repo-details/repo-details';
 /*
@@ -17,7 +17,7 @@ github_user: string = "";
 profile: any;
 repos: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private githubService: GithubService) {}
+  constructor(public modalCtrl: ModalController, public navParams: NavParams, private githubService: GithubService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilesPage');
@@ -47,8 +47,10 @@ repos: any;
  }
 
  repoTapped(event, repo) {
-   this.navCtrl.push(RepoDetailsPage, {
-     repo: repo
-   })
- }
+   let repoModal = this.modalCtrl.create(RepoDetailsPage, {
+     repo:repo
+   });
+
+   repoModal.present();
+   }
 }

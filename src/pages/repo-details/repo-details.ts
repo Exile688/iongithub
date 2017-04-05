@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ViewController, NavController, NavParams } from 'ionic-angular';
+
 
 /*
   Generated class for the RepoDetails page.
@@ -14,12 +15,16 @@ import { NavController, NavParams } from 'ionic-angular';
 export class RepoDetailsPage {
   selectedRepo: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
     this.selectedRepo = navParams.get('repo');
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RepoDetailsPage');
+  }
+
+  closeModal() {
+    this.viewCtrl.dismiss();
   }
 
 }
