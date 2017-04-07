@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { ModalController, NavParams } from 'ionic-angular';
+import { ModalController, NavParams, AlertController, LoadingController  } from 'ionic-angular';
 import { GithubService } from '../../providers/github-service';
 import { RepoDetailsPage } from '../repo-details/repo-details';
+import { FollowerDetailsPage } from '../follower-details/follower-details';
+
+
 /*
   Generated class for the Profiles page.
 
@@ -16,8 +19,9 @@ export class ProfilesPage {
 github_user: string = "";
 profile: any;
 repos: any;
+followers: any;
 
-  constructor(public modalCtrl: ModalController, public navParams: NavParams, private githubService: GithubService) {}
+  constructor(public loadingCtrl: LoadingController, public alertCtrl: AlertController, public modalCtrl: ModalController, public navParams: NavParams, private githubService: GithubService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilesPage');
@@ -28,15 +32,34 @@ repos: any;
     this.github_user = '';
   }
 
+
+
   getProfile(username){
+     let loader = this.loadingCtrl.create ({
+      content: "Please wait...",
+      duration: 3000
+    });
+    loader.present();
     this.githubService.getProfile(username).subscribe(
-      response =>
+      response => {
       this.profile = response
+      loader.dismiss();
+  },
+      error => {
+      loader.dismiss();
+    let alert = this.alertCtrl.create({
+      title: 'Network Error',
+      subTitle: 'Connection Failed',
+      buttons: ['OK']
+    });
+    alert.present();
+      }
     )
   } 
 
   showRepos(username) {
     this.getRepos(username);
+    this.followers = null;
   }
 
  getRepos(username) {
@@ -52,5 +75,35 @@ repos: any;
    });
 
    repoModal.present();
-   }
+  }
+
+ getFollowers(username) {
+   this.githubService.getFollowers(username).subscribe(
+    response =>
+    this.followers = response
+   )
+ }
+
+ showFollowers(username) {
+    this.getFollowers(username);
+    this.repos = null;
+  }
+
+followerTapped(event, follower) {
+   let followerModal = this.modalCtrl.create(FollowerDetailsPage, {
+     follower: follower 
+   });
+
+   followerModal.present();
+  }
+
+  showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Network Error',
+      subTitle: 'Connection Failed',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
 }

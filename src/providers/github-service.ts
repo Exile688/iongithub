@@ -22,13 +22,18 @@ export class GithubService {
 
 //}
 
-getProfile(username: string){
+getProfile(username: string): Observable<any>{
   return this.http.get(`${this.BASE_URL}${username}`)
   .map(response => response.json());
 }
 
 getRepos(username: string){
   return this.http.get(`${this.BASE_URL}${username}/repos`)
+  .map(response => response.json());
+}
+
+getFollowers(username: string){
+  return this.http.get(`${this.BASE_URL}${username}/followers`)
   .map(response => response.json());
 }
 
