@@ -1,0 +1,11 @@
+.ios, .md {
+    page-donut-page {
+        .scroll-content {
+            background-color: map-get($colors, ligt)
+        }
+
+        ion-card-header {
+            font-weight: bold;
+        }
+    }
+}
