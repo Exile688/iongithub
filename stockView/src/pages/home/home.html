@@ -6,13 +6,17 @@
 
 <ion-content padding>
   <h2>StockView Power Trading </h2>
-  <p>
-Stock information will appear here
-  </p>
-  <p>
-Stock ticker:
-  </p>
-  <p>
-Call Letters ...   Company Name ...   $Quote
-  </p>
+
+  <ion-list>
+<ion-item>
+    <ion-label fixed>Search Stock</ion-label>
+    <ion-input type="text" name="myInput" [(ngModel)]="myInput"></ion-input>
+  </ion-item>
+  </ion-list>
+  <button> Search </button> 
+</ion-content>
+<ion-content>
+ <flash-card>
+    <div class ="flash-card-front"> Stock Ticker: </div>
+  </flash-card>
 </ion-content>
