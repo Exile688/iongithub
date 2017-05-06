@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Stock Quotes
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<h2>StockView Power Trading </h2>
+
+  <form (ngSubmit)="getQuote()">
+    <ion-list>
+      <ion-item>
+        <ion-label fixed>Enter symbol </ion-label>
+        <ion-input type="text" name="mySymbol" [(ngModel)]="mySymbol"></ion-input>
+      </ion-item>
+      <button ion-button type="submit"> Submit </button>
+    </ion-list>
+  </form>
+
+<ion-card *ngIf="quoteData">
+
+        <h2> {{quoteData.Name}}</h2>
+        <p> {{quoteData.Symbol}}</p>
+        <p> {{quoteData.LastPrice}}</p>
+        <p> {{quoteData.Timestamp}}</p>
+
+</ion-card>
+</ion-content>
+ 
